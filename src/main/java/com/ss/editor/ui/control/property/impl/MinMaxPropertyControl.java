@@ -23,8 +23,8 @@ public class MinMaxPropertyControl<C extends ChangeConsumer, D> extends Vector2f
             @NotNull C changeConsumer
     ) {
         super(propertyValue, propertyName, changeConsumer);
-        getXField().setMinMax(0, Integer.MAX_VALUE);
-        getYField().setMinMax(0, Integer.MAX_VALUE);
+        getXField().setMinMax(0f, (float) Integer.MAX_VALUE);
+        getYField().setMinMax(0f, (float) Integer.MAX_VALUE);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class ParticleEmitterImagesModelPropertyControl extends Vector2fPropertyC
             @NotNull ModelChangeConsumer changeConsumer
     ) {
         super(element, paramName, changeConsumer);
-        getXField().setMinMax(1, Integer.MAX_VALUE);
-        getYField().setMinMax(1, Integer.MAX_VALUE);
+        getXField().setMinMax(1f, (float) Integer.MAX_VALUE);
+        getYField().setMinMax(1f, (float) Integer.MAX_VALUE);
     }
 }
