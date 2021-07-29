@@ -85,39 +85,7 @@ repositories {
     }
 }
 
-publishing {
-    publications {
-        JmbArtifact(MavenPublication) {
-            from components.java
-            groupId 'com.spaceshift'
-            artifactId 'jmonkeybuilder'
-            version bintrayVersion
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
-}
 
-bintray {
-    user = System.getProperty('bintrayUser')
-    key = System.getProperty('bintrayKey')
-    publications = ['JmbArtifact']
-    pkg {
-        repo = 'maven'
-        name = 'com.spaceshift.jmonkeybuilder'
-        licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/JavaSaBr/jmonkeybuilder'
-        vcsUrl = 'https://github.com/JavaSaBr/jmonkeybuilder.git'
-        issueTrackerUrl = 'https://github.com/JavaSaBr/jmonkeybuilder/issues'
-        githubRepo = 'JavaSaBr/jmonkeybuilder'
-        githubReleaseNotesFile = 'README.md'
-        version {
-            name = bintrayVersion
-            desc = bintrayVersion
-            released  = new Date()
-        }
-    }
-}
 
 javadoc {
     failOnError = false
@@ -128,11 +96,9 @@ dependencies {
     // base
     compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.9.0'
     compile 'org.controlsfx:controlsfx:9.0.0'
-    compile 'com.spaceshift:rlib.fx:5.0.2'
-    compile 'com.spaceshift:rlib.common:7.1.2'
-    compile ('com.jme3:jfx:2.0.0') {
-        exclude group: 'org.jmonkeyengine'
-    }
+    compile  'com.github.wizzardo:RlibFX:master-SNAPSHOT'
+    compile 'com.github.wizzardo:JME3-JFX:2.0.0.1-SNAPSHOT'
+    compile 'com.github.JavaSaBr:jmonkeybuilder-extension:2.3.1'
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
@@ -168,11 +134,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
 
-    // extensions
-    compile ("com.spaceshift:jmonkeybuilder-extension:$jmbExtVersion") {
-        exclude group: 'org.jmonkeyengine'
-    }
-
     compile ("org.xbuf.jme3_xbuf:jme3_xbuf_loader:${jme3_xbuf_version}") {
         exclude group: 'org.jmonkeyengine'
     }
@@ -182,10 +143,6 @@ dependencies {
 
     // TESTS
     testRuntime "com.github.JavaSaBr.jmonkeyengine:jme3-lwjgl3:$jmeVersion"
-    testCompile ("com.spaceshift:jmonkeybuilder-extension:$jmbExtVersion") {
-        exclude group: 'org.jmonkeyengine'
-        exclude group: 'com.github.JavaSaB.jmonkeyengine'
-    }
 
     testCompile "org.junit.platform:junit-platform-commons:$junitPlatformVersion"
     testRuntime "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
@@ -229,8 +186,4 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.7'
 }
